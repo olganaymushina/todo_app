@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+   <head>
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main/tasks.css') }}"> 
+     </head>
+   <body>
+    <form action = "/deleted" method="POST">
+        {{ template_form.hidden_tag() }}
+
+        <h3>Enter the Name of the Task in Order to Delete it From the List</h3>
+
+        {{ template_form.name.label }}
+        {{ template_form.name() }}
+        <br>
+        <br>
+        {{ template_form.submit() }}
+    </form>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+   <head>
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main/tasks.css') }}"> 
+     </head>
+   <body>
+    <h3>To Do List</h3>
+      <table>
+         <thead>
+            <th>Completed</th>
+            <th>ID</th>
+            <th>Task Name</th>
+            <th>Assigned To</th>
+            <th>Due Date</th>
+         </thead>
+         {% for row in rows %}
+            <tr>
+               <td>
+                  <form action="/complete_task" method="post">
+                     <input id="task_id" name="task_id" value={{ row["id"] }} hidden />
+                     {% if row["completed"] == 1 %}
+                     <input id="completed_value" name="completed_value" value=0 hidden/>
+                     <input id="completed_checkbox" name="completed_checkbox" type="checkbox" onchange="submit()" checked>
+                     {% else %}
+                     <input id="completed_value" name="completed_value" value=1 hidden/>
+                     <input id="completed_checkbox" name="completed_checkbox" type="checkbox" onchange="submit()">
+                     {% endif %}
+                  </form>
+               </td>
+               <td>{{row["id"]}}</td>
+               <td>{{row["name"]}}</td>
+               <td>{{row["roommate_name"]}}</td>
+               <td>{{row["date"]}}</td>
+            </tr>
+         {% endfor %}
+      </table>
+      <br>
+      <br>
+      <a href = "/">Go back to home page</a>
+   </body>
+</html>

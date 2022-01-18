@@ -1,0 +1,26 @@
+table {
+
+    background-color: rgb(184, 233, 115); 
+    width: 100%;
+} 
+
+table, th, td {
+    border: 1px solid rgb(191, 0, 255);
+  }
+
+  th {
+    background-color: rgb(88, 224, 172);
+    color:rgb(95, 17, 89);
+
+}
+ td {
+     font-size: 20px;
+     text-align: center;
+     background-color: rgb(88, 224, 172);
+     width: 20%;
+ }
+
+ h3 {
+     text-align: center;
+     color:rgb(95, 17, 89);
+ }
