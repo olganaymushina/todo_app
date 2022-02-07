@@ -1,10 +1,9 @@
 <doctype>
     <html>
         <body>
-            <form action = "/new_task" method="POST">
+            <h3>Fill out the Fields in Order to Add a New Task to the List</h3>
+            <form action = "/added_task" method="POST">
                 {{ template_form.hidden_tag() }}
-
-                <h3>Fill out the Fields in Order to Add a New Task to the List</h3>
 
                 {{ template_form.name.label }}
                 {{ template_form.name()}}
@@ -21,3 +20,5 @@
                 {{ template_form.submit() }}
                 <br>
                 <br>
+            </form>
+    </body>

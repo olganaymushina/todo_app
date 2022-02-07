@@ -16,7 +16,7 @@ def tasks():
     con = sqlite3.connect("todo.db")
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute("SELECT tasks.completed, tasks.id, tasks.name, roommates.name AS roommate_name, tasks.date FROM tasks JOIN roommates ON tasks.user_id = roommates.user_id")
+    cur.execute("SELECT tasks.completed, tasks.id, tasks.name, roommates.name AS roommate_name, tasks.date FROM tasks LEFT JOIN roommates ON roommates.user_id=tasks.user_id")
     rows = cur.fetchall()
     con.commit()
     con.close
@@ -27,17 +27,17 @@ def add_task():
     new_task = NewTask(csrf_enabled = False)
     return render_template("add_new_task.html", template_form = new_task)
 
-@app.route('/new_task', methods = ["GET", "POST"])
+@app.route('/added_task', methods = ["GET", "POST"])
 def task():
     new_task = NewTask(csrf_enabled = False)
     if request.method == "POST":
         con = sqlite3.connect("todo.db")
         name = request.form['name']
-        user_id = request.form['user_id']
-        date = request.form['date']
-        con.execute("INSERT INTO tasks (name, user_id, date) VALUES (?,?,?)",(name, user_id, date))
+        user_name = request.form['user_id']
+        due = request.form['date']
+        con.execute("INSERT INTO tasks (name, user_id, date) VALUES (?,?,?)",(name, user_name, due))
         con.commit()
-        con.close()
+        con.close
     return render_template('message.html', template_form = new_task)
 
 @app.route('/complete_task', methods = ["GET", "POST"])
@@ -46,9 +46,9 @@ def complete_task():
         con = sqlite3.connect("todo.db")
         task_id = request.form["task_id"]
         completed_value = request.form["completed_value"]
-        con.execute("UPDATE tasks SET completed = " + completed_value + " WHERE id = " + task_id)
+        con.execute("UPDATE tasks SET completed = ? WHERE id = ? ", (completed_value, task_id))
         con.commit()
-        con.close()
+        con.close
     return redirect('/all-tasks')
 
 @app.route('/delete-task')
@@ -65,7 +65,7 @@ def delete():
         cur = con.cursor()
         cur.execute("DELETE FROM tasks WHERE name = ? ", [name])
         con.commit()
-        con.close()
+        con.close
     return render_template("message2.html", template_form = del_task)
 
 
